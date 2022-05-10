@@ -2,13 +2,20 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ce0b43b3-4080-435c-811a-d2c13589a74b" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/Resources/background.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/view/LoginRegisterPageView.fxml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/view/LoginRegisterView.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/Messager/Main.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/Messager/Resources/background.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/Messager/background.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Resources/icons8-messaging-100.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/controller/SignInController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/controller/StartPageController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/model/Person.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/view/SignInView.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/view/StartPageView.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/view/StartPageView.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Messager.iml" beforeDir="false" afterPath="$PROJECT_DIR$/Messager.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/view/LoginRegisterPageView.fxml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/view/LoginRegisterView.css" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -18,6 +25,7 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
+        <option value="Class" />
         <option value="FxmlFile" />
       </list>
     </option>
@@ -41,7 +49,7 @@
     "ASKED_ADD_EXTERNAL_FILES": "true",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "last_opened_file_path": "E:/javafx project/fx",
+    "last_opened_file_path": "E:/Messager",
     "project.structure.last.edited": "Modules",
     "project.structure.proportion": "0.0",
     "project.structure.side.proportion": "0.2"
