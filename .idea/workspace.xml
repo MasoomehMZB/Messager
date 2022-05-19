@@ -2,20 +2,30 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ce0b43b3-4080-435c-811a-d2c13589a74b" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/out/production/Messager/Main.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/Messager/Resources/background.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/Messager/background.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Resources/icons8-messaging-100.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/controller/SignInController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/controller/StartPageController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/model/Person.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/view/SignInView.fxml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/view/StartPageView.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/view/StartPageView.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/controller/MainPageController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/model/SendMail.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Messager.iml" beforeDir="false" afterPath="$PROJECT_DIR$/Messager.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Messager/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Messager/Main.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Messager/Resources/background.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Messager/Resources/icons8-messaging-100.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Messager/background.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Messager/controller/StartPageController.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Messager/controller/StartPageController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Messager/icons8-messaging-100.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Messager/view/StartPageView.css" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/view/LoginRegisterPageView.fxml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/view/LoginRegisterView.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/controller/RegisterController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/RegisterController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/controller/SignInController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/SignInController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/controller/StartPageController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/StartPageController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/model/JDBC.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/JDBC.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/model/Person.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/Person.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/model/UserNotFoundException.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/UserNotFoundException.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/view/ChatView.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/ChatView.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/view/MainPageView.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/MainPageView.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/view/RegisterView.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/RegisterView.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/view/SigninView.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/SigninView.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/view/StartPageView.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/StartPageView.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/view/StyleSheet.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/StyleSheet.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -25,8 +35,9 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Class" />
+        <option value="JavaFXApplication" />
         <option value="FxmlFile" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -44,17 +55,24 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ASKED_ADD_EXTERNAL_FILES": "true",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "last_opened_file_path": "E:/Messager",
-    "project.structure.last.edited": "Modules",
-    "project.structure.proportion": "0.0",
-    "project.structure.side.proportion": "0.2"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;last.edited.regexp&quot;: &quot;&quot;,
+    &quot;last_opened_file_path&quot;: &quot;E:/Java/project1&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Libraries&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;
   }
-}]]></component>
+}</component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="E:\Messager\src\Resources\img" />
+    </key>
+  </component>
   <component name="RunManager">
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="Main" />
@@ -93,5 +111,15 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <breakpoint enabled="true" type="java-exception">
+          <properties class="java.lang.NullPointerException" package="java.lang" />
+          <option name="timeStamp" value="1" />
+        </breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

@@ -3,7 +3,6 @@
   -fx-background-color: #faf8d7;
   -fx-cursor: hand;
   -fx-text-align: center;
-  -fx-min-width: 120;
   -fx-opacity: 0.85;
 
 }
@@ -12,7 +11,8 @@
   -fx-color: white;
 }
 .root{
-   -fx-background-image : url("Resources/background.jpg");
+   -fx-background-image : url("/img/background.jpg");
+   -fx-background-color:black;
    -fx-background-size: cover;
    -fx-background-repeat: no-repeat;
 }

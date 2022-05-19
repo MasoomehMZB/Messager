@@ -13,7 +13,7 @@ public class Main extends Application {
     }
 
     @Override
-    public void start(Stage primaryStage) throws Exception {
+    public void start(Stage primaryStage) {
 
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("\\view\\StartPageView.fxml"));
         try {
@@ -23,15 +23,14 @@ public class Main extends Application {
             e.printStackTrace();
         }
 
-        StartPageController controller = new StartPageController();
+        StartPageController controller = fxmlLoader.getController();
         controller.initFunction(primaryStage);
 
         Scene scene = new Scene(fxmlLoader.getRoot());
         primaryStage.setScene(scene);
-        Image icon = new Image("Resources/icons8-messaging-100.png");
+        Image icon = new Image("img/icons8-messaging-100.png");
         primaryStage.getIcons().add(icon);
-        scene.getStylesheets().add(getClass().getResource("\\view\\StartPageView.css").toExternalForm());
+        scene.getStylesheets().add(getClass().getResource("\\view\\StyleSheet.css").toExternalForm());
         primaryStage.show();
-
     }
 }
