@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.scene.image.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+
+<BorderPane prefHeight="703.0" prefWidth="774.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.ChatView">
+   <center>
+      <VBox prefHeight="153.0" prefWidth="287.0" BorderPane.alignment="CENTER" />
+   </center>
+   <bottom>
+      <HBox fx:id="MessagesHBX" alignment="CENTER" nodeOrientation="RIGHT_TO_LEFT" prefHeight="55.0" prefWidth="774.0" spacing="20.0" BorderPane.alignment="CENTER">
+         <children>
+            <Button fx:id="SendBTN" contentDisplay="GRAPHIC_ONLY" maxHeight="40.0" maxWidth="40.0" minHeight="40.0" minWidth="40.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0" style="-fx-background-radius: 50%;">
+               <graphic>
+                  <ImageView fitHeight="40.0" fitWidth="40.0">
+                     <image>
+                        <Image url="@../Resources/img/icons8-email-send-100.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+            <TextField fx:id="TextTFD" prefHeight="39.0" prefWidth="537.0" />
+         </children>
+      </HBox>
+   </bottom>
+</BorderPane>
