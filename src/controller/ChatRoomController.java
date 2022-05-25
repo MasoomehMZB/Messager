@@ -1,2 +1,402 @@
-package controller;public class ChatRoomController {
+package controller;
+
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
+import javafx.scene.Scene;
+import javafx.scene.control.*;
+import javafx.scene.input.*;
+import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.Text;
+import javafx.scene.text.TextAlignment;
+import javafx.scene.text.TextFlow;
+import javafx.stage.Stage;
+import model.*;
+
+import java.io.IOException;
+import java.net.URL;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.Optional;
+import java.util.ResourceBundle;
+
+public class ChatRoomController implements Initializable {
+
+    @FXML
+    private TextField TextTFD;
+
+    @FXML
+    private VBox MessagesVBX;
+
+    @FXML
+    private Button SendBTN;
+
+    @FXML
+    private Button OkBTN;
+
+    private Stage ChatRoomStage;
+
+    private String Friend_GroupName;
+
+    private String Username;
+
+    private int FriendChatRoom;
+
+    private int userChatRoom;
+
+    @FXML
+    private MenuItem ClearHistoryMBN;
+
+    @FXML
+    private MenuItem BackMBN;
+
+    @FXML
+    private Label friendNameLBL;
+
+    @FXML
+    private Menu kickMNU;
+
+    @FXML
+    private Label participantsLBL;
+
+    private ChatRoomType type;
+
+    private ArrayList<Person> users;
+
+    private ArrayList<String> participants;
+
+    private int index;
+
+    private JDBC jdbc = new JDBC();
+
+
+    public void initFunction(Stage chatRoomStage , String username , String friend_groupName , int userChatRoom,
+                             int friendChatRoom ,ArrayList<Person> users , int index , ChatRoomType type) {
+        this.ChatRoomStage = chatRoomStage;
+        this.Friend_GroupName = friend_groupName;
+        this.Username = username;
+        this.FriendChatRoom = friendChatRoom;
+        this.userChatRoom = userChatRoom;
+        this.users = users;
+        this.index = index;
+        this.type = type;
+
+        friendNameLBL.setText(Friend_GroupName);
+
+        ArrayList<ChatLine> chatLines = jdbc.getChats(userChatRoom);
+        System.out.println(chatLines.size());
+        for (ChatLine chatline : chatLines) {
+
+            if (chatline.getUsername().equals(username)){
+
+                TextFlow textFlow = new TextFlow();
+                Text theUsername = new Text(chatline.getUsername() + "\t");
+                theUsername.setFill(Color.GREEN);
+                theUsername.setFont(Font.font("Helvetica", 18));
+                Text time = new Text(chatline.getTime() + "\n");
+                time.setFill(Color.GRAY);
+                time.setFont(Font.font("Helvetica", 16));
+
+                textFlow.getChildren().add(theUsername);
+                textFlow.getChildren().add(time);
+
+                Group_info group_info = new Group_info();
+                if (group_info.LinkValidation(chatline.getLine_text())){
+                    Hyperlink hyperlink = new Hyperlink(chatline.getLine_text());
+                    textFlow.getChildren().add(hyperlink);
+
+                }
+                else{
+                    Text text = new Text(chatline.getLine_text());
+                    text.setFill(Color.BLACK);
+                    text.setFont(Font.font("Verdana", 20));
+                    textFlow.getChildren().add(text);
+                }
+
+                textFlow.setTextAlignment(TextAlignment.LEFT);
+                textFlow.setLineSpacing(10.0f);
+                textFlow.setMaxWidth(600);
+                textFlow.setStyle("-fx-background-color: #faf8d7");
+                textFlow.setPadding (new Insets(0 , 5 , 5 , 5));
+                MessagesVBX.getChildren().add(textFlow);
+            }
+            else {
+                TextFlow textFlow = new TextFlow();
+                Text theUsername = new Text(chatline.getUsername() + "\n");
+                theUsername.setFill(Color.GREEN);
+                theUsername.setFont(Font.font("Helvetica", 18));
+                Text time = new Text(chatline.getTime() + "\t");
+                time.setFill(Color.GRAY);
+                time.setFont(Font.font("Helvetica", 16));
+
+                textFlow.getChildren().add(time);
+                textFlow.getChildren().add(theUsername);
+
+                Group_info group_info = new Group_info();
+                if (group_info.LinkValidation(chatline.getLine_text())){
+                    Hyperlink hyperlink = new Hyperlink(chatline.getLine_text());
+                    textFlow.getChildren().add(hyperlink);
+                    hyperlink.setOnAction(new EventHandler<ActionEvent>() {
+                        @Override
+                        public void handle(ActionEvent event) {
+                            Group_info groupInfo;
+                            groupInfo = jdbc.FindHyperLinks(chatline.getLine_text());
+                            groupInfo.setLink(chatline.getLine_text());
+                            groupInfo.setStatus(1);
+                            groupInfo.setUser(Username);
+                            jdbc.InsertIntoGroup(group_info);
+                        }
+                    });
+                }
+                else{
+                    Text text = new Text(chatline.getLine_text());
+                    text.setFill(Color.BLACK);
+                    text.setFont(Font.font("Verdana", 20));
+                    textFlow.getChildren().add(text);
+                }
+
+                textFlow.setTextAlignment(TextAlignment.RIGHT);
+                textFlow.setLineSpacing(10.0f);
+                textFlow.setMaxWidth(600);
+                textFlow.setStyle("-fx-background-color: #c2ede5");
+                textFlow.setPadding (new Insets(0 , 5 , 5 , 5));
+                MessagesVBX.getChildren().add(textFlow);
+            }
+
+        }
+
+        if (type == ChatRoomType.GROUP) {
+            participants = jdbc.GetGroupInfo(userChatRoom, Friend_GroupName);
+            String Participants = "";
+
+            for (String person : participants){
+               Participants = Participants.concat(person + ", ");
+            }
+            participantsLBL.setText(Participants);
+
+            if (participants.get(0).equals(username)) {
+                kickMNU.setVisible(true);
+
+                for (int i = 1 ; i < participants.size() ; i++ ){
+                    MenuItem person = new MenuItem(participants.get(i));
+                    int finalI = i;
+                    person.setOnAction(new EventHandler<ActionEvent>() {
+                        @Override
+                        public void handle(ActionEvent event) {
+                            jdbc.RemoveParticipant(participants.get(finalI), Friend_GroupName);
+                        }
+                    });
+                }
+            }
+            else {
+                kickMNU.setVisible(false);
+            }
+        }
+    }
+
+    @FXML
+    public void SendHandler(ActionEvent event) {
+
+        TextFlow textFlow = new TextFlow();
+
+        Text username = new Text(Username + "\t");
+        username.setFill(Color.GREEN);
+        username.setFont(Font.font("Helvetica", 18));
+        DateTimeFormatter Format = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
+        LocalDateTime dateTime = LocalDateTime.now();
+        Text time = new Text(dateTime.format(Format) + "\n");
+        time.setFill(Color.GRAY);
+        time.setFont(Font.font("Helvetica", 16));
+
+        textFlow.getChildren().add(username);
+        textFlow.getChildren().add(time);
+
+        String textValue;
+
+        Hyperlink hyperlink = new Hyperlink(TextTFD.getText());
+        Text text = new Text(TextTFD.getText());
+
+        Group_info group_info = new Group_info();
+        if (group_info.LinkValidation(TextTFD.getText())) {
+
+            textValue = TextTFD.getText();
+
+            textFlow.getChildren().add(hyperlink);
+        } else {
+            textValue = TextTFD.getText();
+
+            text.setFill(Color.BLACK);
+            text.setFont(Font.font("Verdana", 20));
+            textFlow.getChildren().add(text);
+        }
+
+        textFlow.setTextAlignment(TextAlignment.LEFT);
+        textFlow.setLineSpacing(10.0f);
+        textFlow.setMaxWidth(600);
+        textFlow.setStyle("-fx-background-color: #faf8d7");
+        textFlow.setPadding(new Insets(0, 5, 5, 5));
+        MessagesVBX.getChildren().add(textFlow);
+
+        if (type == ChatRoomType.GROUP) {
+            jdbc.InsertChats(userChatRoom, Username, TextTFD.getText());
+        } else {
+            jdbc.InsertChats(FriendChatRoom, Username, TextTFD.getText());
+            jdbc.InsertChats(userChatRoom, Username, TextTFD.getText());
+        }
+
+        final ContextMenu MessageCMU = new ContextMenu();
+        MenuItem editMessage = new MenuItem("Edit");
+        MenuItem deleteMessage = new MenuItem("Delete");
+
+        editMessage.setOnAction(new EventHandler<ActionEvent>() {
+            public void handle(ActionEvent e) {
+
+                TextTFD.setText(textValue);
+
+                OkBTN.setVisible(true);
+
+                OkBTN.setOnAction(new EventHandler<ActionEvent>() {
+                    @Override
+                    public void handle(ActionEvent event) {
+                        jdbc.editText(TextTFD.getText(), textValue, userChatRoom);
+                        jdbc.editText(TextTFD.getText(), textValue, FriendChatRoom);
+
+                        Group_info group_info = new Group_info();
+                        if (group_info.LinkValidation(TextTFD.getText())) {
+
+                            textFlow.getChildren().remove(hyperlink);
+                            Hyperlink newHyperlink = new Hyperlink(TextTFD.getText());
+                            textFlow.getChildren().add(newHyperlink);
+
+                        } else {
+
+                            Text newText = new Text(TextTFD.getText());
+                            newText.setFill(Color.BLACK);
+                            newText.setFont(Font.font("Verdana", 20));
+                            textFlow.getChildren().remove(text);
+                            textFlow.getChildren().add(newText);
+
+                        }
+                        TextTFD.clear();
+                        OkBTN.setVisible(false);
+                    }
+                });
+
+            }
+        });
+
+        deleteMessage.setOnAction(new EventHandler<ActionEvent>() {
+            public void handle(ActionEvent e) {
+                jdbc.deleteText(textValue, userChatRoom);
+                jdbc.deleteText(textValue, FriendChatRoom);
+                MessagesVBX.getChildren().remove(textFlow);
+            }
+        });
+
+        MessageCMU.getItems().add(editMessage);
+        MessageCMU.getItems().add(deleteMessage);
+
+        textFlow.addEventHandler(MouseEvent.MOUSE_CLICKED,
+                new EventHandler<MouseEvent>() {
+                    @Override
+                    public void handle(MouseEvent e) {
+                        if (e.getButton() == MouseButton.SECONDARY)
+                            MessageCMU.show(textFlow, e.getScreenX(), e.getScreenY());
+                    }
+                });
+        if (!TextTFD.getText().isEmpty()) {
+
+          Timer timer = new Timer();
+            timer.start();
+            while (!timer.check) {
+                MessagesVBX.setOnKeyPressed(new EventHandler<KeyEvent>() {
+                    @Override
+                    public void handle(KeyEvent event) {
+                        if (event.getCode() == KeyCode.B){
+                            jdbc.deleteText(textValue, userChatRoom);
+                            jdbc.deleteText(textValue, FriendChatRoom);
+                            MessagesVBX.getChildren().remove(textFlow);
+                        }
+                    }
+                });
+
+            }
+        }
+
+        TextTFD.clear();
+
+    }
+
+
+    @FXML
+    public void BackHandler (ActionEvent event){
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("..\\view\\MainPageView.fxml"));
+        try{
+            loader.load();
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
+        }
+        MainPageController controller = loader.getController();
+        controller.initFunction(ChatRoomStage , users , index);
+
+        Scene scene = new Scene(loader.getRoot());
+        ChatRoomStage.setScene(scene);
+        scene.getStylesheets().add(getClass().getResource("..\\view\\StyleSheet.css").toExternalForm());
+    }
+
+    @FXML
+    public void ClearHistory (ActionEvent event){
+        Alert alert = new Alert(Alert.AlertType.NONE);
+        alert.setContentText("Clear History?");
+
+        ButtonType for_me = new ButtonType("for me", ButtonBar.ButtonData.OK_DONE);
+        ButtonType for_everyone = new ButtonType("for everyone", ButtonBar.ButtonData.APPLY);
+        ButtonType cancel = new ButtonType("Cancel", ButtonBar.ButtonData.CANCEL_CLOSE);
+
+        alert.getDialogPane().getButtonTypes().addAll(for_me ,for_everyone ,cancel);
+
+        Optional<ButtonType> result = alert.showAndWait();
+        System.out.println(result.get());
+        if(!result.isPresent()){
+            alert.close();
+        }
+        // alert is exited, no button has been pressed.
+        else if(result.get() == for_everyone){
+
+            if (ChatRoomType.GROUP == type){
+                jdbc.ClearChats(userChatRoom);
+            }
+            else {
+                jdbc.ClearChats(FriendChatRoom);
+                jdbc.ClearChats(userChatRoom);
+            }
+             MessagesVBX.getChildren().removeAll();
+        }
+        //oke button is pressed
+        else if(result.get() == for_me){
+            jdbc.ClearChats(userChatRoom);
+            MessagesVBX.getChildren().removeAll();
+        }
+        // cancel button is pressed
+    }
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+
+        SendBTN.setOnAction(this::SendHandler);
+        BackMBN.setOnAction(this::BackHandler);
+        ClearHistoryMBN.setOnAction(this::ClearHistory);
+
+    }
 }
+

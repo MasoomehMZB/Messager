@@ -2,29 +2,36 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ce0b43b3-4080-435c-811a-d2c13589a74b" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/controller/MainPageController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/model/SendMail.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Resources/img/icons8-check-mark-100.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Resources/img/icons8-email-send-100.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/controller/ChatRoomController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/model/ChatLine.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/model/ChatRoomType.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/model/Group_info.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/model/Relationships.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/model/Timer.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/view/ChatRoomView.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Messager.iml" beforeDir="false" afterPath="$PROJECT_DIR$/Messager.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Messager/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Messager/Main.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Messager/Resources/background.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Messager/Resources/icons8-messaging-100.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Messager/background.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Messager/controller/StartPageController.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Messager/controller/StartPageController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Messager/icons8-messaging-100.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Messager/view/StartPageView.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Messager/controller/MainPageController.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Messager/controller/MainPageController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Messager/controller/RegisterController.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Messager/controller/RegisterController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Messager/controller/SignInController.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Messager/controller/SignInController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Messager/model/JDBC.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Messager/model/JDBC.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Messager/model/Person.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Messager/model/Person.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Messager/model/UserNotFoundException.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Messager/model/UserNotFoundException.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Messager/view/ChatView.fxml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Messager/view/MainPageView.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Messager/view/MainPageView.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Messager/view/RegisterView.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Messager/view/RegisterView.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Messager/view/StyleSheet.css" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Messager/view/StyleSheet.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/controller/MainPageController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/MainPageController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/controller/RegisterController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/RegisterController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/controller/SignInController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/SignInController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/controller/StartPageController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/StartPageController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/model/JDBC.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/JDBC.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/model/Person.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/Person.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/model/SendMail.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/SendMail.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/model/UserNotFoundException.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/UserNotFoundException.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/view/ChatView.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/ChatView.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/view/ChatView.fxml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/view/MainPageView.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/MainPageView.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/view/RegisterView.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/RegisterView.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/view/SigninView.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/SigninView.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/view/StartPageView.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/StartPageView.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/view/StyleSheet.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/StyleSheet.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -62,7 +69,7 @@
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
     &quot;last.edited.regexp&quot;: &quot;&quot;,
-    &quot;last_opened_file_path&quot;: &quot;E:/Java/project1&quot;,
+    &quot;last_opened_file_path&quot;: &quot;E:/javafx project/fx&quot;,
     &quot;project.structure.last.edited&quot;: &quot;Libraries&quot;,
     &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
     &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;
@@ -119,6 +126,33 @@
           <properties class="java.lang.NullPointerException" package="java.lang" />
           <option name="timeStamp" value="1" />
         </breakpoint>
+        <breakpoint enabled="true" type="java-exception">
+          <properties class="java.lang.IndexOutOfBoundsException" package="java.lang" />
+          <option name="timeStamp" value="3" />
+        </breakpoint>
+        <breakpoint enabled="true" type="java-exception">
+          <properties class="java.lang.ClassNotFoundException" package="java.lang" />
+          <option name="timeStamp" value="4" />
+        </breakpoint>
+        <line-breakpoint enabled="true" type="java-method">
+          <url>file://$PROJECT_DIR$/src/model/JDBC.java</url>
+          <line>85</line>
+          <properties class="model.JDBC" method="checkExistenceRelationships">
+            <option name="EMULATED" value="true" />
+            <option name="WATCH_EXIT" value="false" />
+          </properties>
+          <option name="timeStamp" value="22" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/controller/MainPageController.java</url>
+          <line>206</line>
+          <option name="timeStamp" value="29" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/controller/MainPageController.java</url>
+          <line>139</line>
+          <option name="timeStamp" value="30" />
+        </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
   </component>

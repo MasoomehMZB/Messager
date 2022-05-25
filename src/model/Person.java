@@ -6,15 +6,13 @@ import java.util.regex.Pattern;
 
 public class Person {
 
-    public Person(String name, String userName, String email, String passwordHash) {
-        this.name = name;
+    public Person( String userName, String email, String passwordHash) {
         this.userName = userName;
         Email = email;
         this.passwordHash = passwordHash;
     }
     public Person(){}
 
-    private String name;
     private String userName;
     private String Email;
 
@@ -23,14 +21,6 @@ public class Person {
     }
 
     private String passwordHash;
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
 
     public String getUserName() {
         return userName;

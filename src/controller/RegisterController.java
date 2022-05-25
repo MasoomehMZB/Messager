@@ -17,7 +17,6 @@ import model.SendMail;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Objects;
 import java.util.Random;
 import java.util.ResourceBundle;
 
@@ -45,13 +44,7 @@ public class RegisterController implements Initializable {
     private Text PMessageTXT;
 
     @FXML
-    private Text NMessageTXT;
-
-    @FXML
     private TextField EmailTFD;
-
-    @FXML
-    private TextField NameTFD;
 
     @FXML
     private TextField VCodeTFD;
@@ -99,16 +92,8 @@ public class RegisterController implements Initializable {
 
         person = new Person();
 
-        if (Person. NicknameValidation(NameTFD.getText())){
-            person.setName(NameTFD.getText());
-        }
-        else{
-            NMessageTXT.setText("Your nickname should only consist of upper and lower case letters and numbers.");
-            valid = false;
-            NameTFD.clear();
-        }
         if (Person.UsernamePasswordValidation(UsernameTFD.getText())){
-            if (jdbc.checkExistence("username" , UsernameTFD.getText())){
+            if (jdbc.checkExistenceUser("username" , UsernameTFD.getText())){
                 UMessageTXT.setText("This username already exists");
                 valid = false;
                 UsernameTFD.clear();
@@ -135,7 +120,7 @@ public class RegisterController implements Initializable {
 
 
         if (Person.EmailValidation(EmailTFD.getText())){
-            if (jdbc.checkExistence("email" , EmailTFD.getText())){
+            if (jdbc.checkExistenceUser("email" , EmailTFD.getText())){
                 MessageTXT.setText("This username already exists");
                 valid = false;
                 EmailTFD.clear();
@@ -189,15 +174,12 @@ public class RegisterController implements Initializable {
                 VCodeTFD.setVisible(true);
             }
         }
-
-
     }
 
     public void clearTextFields(){
         UMessageTXT.setText("");
         PMessageTXT.setText("");
         MessageTXT.setText("");
-        NMessageTXT.setText("");
     }
 
     @Override

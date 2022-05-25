@@ -11,8 +11,6 @@
    <center>
       <VBox alignment="CENTER" fillWidth="false" prefHeight="494.0" prefWidth="600.0" spacing="5.0" BorderPane.alignment="CENTER">
          <children>
-            <TextField fx:id="NameTFD" layoutX="170.0" layoutY="61.0" maxHeight="47.0" maxWidth="280.0" prefHeight="47.0" prefWidth="280.0" promptText="Nickname or Alias:" />
-            <Text fx:id="NMessageTXT" fill="RED" layoutX="310.0" layoutY="129.0" strokeType="OUTSIDE" strokeWidth="0.0" />
             <TextField fx:id="UsernameTFD" layoutX="210.0" layoutY="182.0" maxHeight="47.0" maxWidth="280.0" prefHeight="47.0" prefWidth="280.0" promptText="Username:" />
             <Text fx:id="UMessageTXT" fill="RED" layoutX="292.0" layoutY="239.0" strokeType="OUTSIDE" strokeWidth="0.0" />
             <PasswordField fx:id="PasswordPFD" prefHeight="47.0" prefWidth="280.0" promptText="Password:" />

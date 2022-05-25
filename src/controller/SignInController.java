@@ -13,6 +13,7 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import model.JDBC;
 import model.Person;
+import model.UserNotFoundException;
 
 import java.io.IOException;
 import java.net.URL;
@@ -38,10 +39,6 @@ public class SignInController implements Initializable {
 
     @FXML
     private Text PMessageTXT;
-
-    public ArrayList<Person> getUsers() {
-        return Users;
-    }
 
     private ArrayList<Person> Users = new ArrayList<>();
 
@@ -71,44 +68,48 @@ public class SignInController implements Initializable {
     }
 
     @FXML
-    public void LoginHandler(ActionEvent event){
+    public void LoginHandler(ActionEvent event) {
         clearTextFields();
         JDBC jdbc = new JDBC();
         Users = jdbc.ReadIntoArrayList();
 
-        for (int i = 0 ; i < Users.size() ; i++) {
+        int i;
+        i = searchForUsername();
+        Person person = new Person();
+        String passwordHash = person.setPasswordHash(PasswordPFD.getText());
+        if ( i != -1 ){
+            if (Users.get(i).getPasswordHash().equals(passwordHash)) {
 
-            System.out.println(Users.get(i).getPasswordHash());
-
-            if ( !UsernameTFD.getText().isEmpty() && Users.get(i).getUserName().equals(UsernameTFD.getText())) {
-                Person person = new Person();
-                String passwordHash = person.setPasswordHash(PasswordPFD.getText());
-                if (Users.get(i).getPasswordHash().equals(passwordHash)) {
-
-                    FXMLLoader loader = new FXMLLoader();
-                    loader.setLocation(getClass().getResource("..\\view\\MainPageView.fxml"));
-                    try{
-                        loader.load();
-                    }
-                    catch (IOException e)
-                    {
-                        e.printStackTrace();
-                    }
-                    MainPageController controller = loader.getController();
-                    controller.initFunction(Sign_inStage , Users , i);
-
-                    Scene scene = new Scene(loader.getRoot());
-                    Sign_inStage.setScene(scene);
-                    scene.getStylesheets().add(getClass().getResource("..\\view\\StyleSheet.css").toExternalForm());
-
-                } else {
-                    PMessageTXT.setText("Wrong Password.");
+                FXMLLoader loader = new FXMLLoader();
+                loader.setLocation(getClass().getResource("..\\view\\MainPageView.fxml"));
+                try {
+                    loader.load();
+                } catch (IOException e) {
+                    e.printStackTrace();
                 }
+                MainPageController controller = loader.getController();
+
+                controller.initFunction(Sign_inStage, Users, i);
+
+                Scene scene = new Scene(loader.getRoot());
+                Sign_inStage.setScene(scene);
+                scene.getStylesheets().add(getClass().getResource("..\\view\\StyleSheet.css").toExternalForm());
+
             } else {
-                UMessageTXT.setText("Please make sure the fields aren't empty and the username is correct.");
+                PMessageTXT.setText("Wrong Password.");
             }
         }
-
+        else{
+            UMessageTXT.setText("Make sure the username field is filled and username is correct.");
+        }
+    }
+    public int searchForUsername(){
+        for (int i = 0 ; i < Users.size() ; i++) {
+            if ( !UsernameTFD.getText().isEmpty() && Users.get(i).getUserName().equals(UsernameTFD.getText())){
+                return i ;
+            }
+        }
+        return -1;
     }
 
     public void clearTextFields(){
