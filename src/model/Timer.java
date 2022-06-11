@@ -5,13 +5,11 @@ public class Timer extends Thread{
 
     @Override
     public void run(){
-        for (int i = 10 ; i > 0 ; i--){
-            try {
-                Thread.sleep(1000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
+        try {
+            Thread.sleep(10000);
+            check = true;
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         }
-        check = true;
     }
 }

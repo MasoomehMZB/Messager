@@ -28,6 +28,8 @@ public class ChatLine {
         this.line_text = line_text;
     }
 
+    public Timestamp getTime() {return time;}
+
     public ChatLine(int chatID, String username, String line_text, Timestamp time) {
         this.chatID = chatID;
         this.username = username;
@@ -36,12 +38,8 @@ public class ChatLine {
     }
 
     private int chatID;
+    //the sender of the text
     private String username;
     private String line_text;
-
-    public Timestamp getTime() {
-        return time;
-    }
-
     private Timestamp time;
 }

@@ -6,6 +6,7 @@ import java.util.regex.Pattern;
 
 public class Person {
 
+    //constructors
     public Person( String userName, String email, String passwordHash) {
         this.userName = userName;
         Email = email;
@@ -13,14 +14,15 @@ public class Person {
     }
     public Person(){}
 
+    //attributes
     private String userName;
     private String Email;
+    private String passwordHash;
 
+    //getter and setters
     public String getPasswordHash() {
         return passwordHash;
     }
-
-    private String passwordHash;
 
     public String getUserName() {
         return userName;
@@ -30,6 +32,15 @@ public class Person {
         this.userName = userName;
     }
 
+    public String getEmail() {
+        return Email;
+    }
+
+    public void setEmail(String email) {
+        Email = email;
+    }
+
+    //this method gets the password and sets its hash
     public String setPasswordHash(String password) {
         String passwordHash = null;
         try
@@ -58,23 +69,13 @@ public class Person {
         return passwordHash;
     }
 
-    public String getEmail() {
-        return Email;
-    }
-
-    public void setEmail(String email) {
-        Email = email;
-    }
-
+    //username/password validation
     public static boolean UsernamePasswordValidation(String user)
     {
         return Pattern.matches("[a-zA-Z0-9]{6,12}", user);
     }
 
-    public static boolean NicknameValidation(String user)
-    {
-        return Pattern.matches("[a-zA-Z0-9]{2,12}", user);
-    }
+    //email validation
     public static boolean EmailValidation(String email)
     {
         return Pattern.matches("(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|\"(?:" +

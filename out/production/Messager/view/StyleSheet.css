@@ -16,3 +16,10 @@
    -fx-background-size: cover;
    -fx-background-repeat: no-repeat;
 }
+.list-cell:even {
+    -fx-background-color: #dbdbd0;
+}
+.list-cell:filled:hover {
+    -fx-background-color: #a87e9e;
+    -fx-text-fill: white;
+}

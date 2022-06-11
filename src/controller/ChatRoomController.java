@@ -10,6 +10,7 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.input.*;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
@@ -34,6 +35,9 @@ public class ChatRoomController implements Initializable {
 
     @FXML
     private VBox MessagesVBX;
+
+    @FXML
+    private HBox SendHBX;
 
     @FXML
     private Button SendBTN;
@@ -66,6 +70,9 @@ public class ChatRoomController implements Initializable {
     @FXML
     private Label participantsLBL;
 
+    @FXML
+    private Button unsendBTN;
+
     private ChatRoomType type;
 
     private ArrayList<Person> users;
@@ -77,6 +84,7 @@ public class ChatRoomController implements Initializable {
     private JDBC jdbc = new JDBC();
 
 
+    //getting the stage and chatroom info
     public void initFunction(Stage chatRoomStage , String username , String friend_groupName , int userChatRoom,
                              int friendChatRoom ,ArrayList<Person> users , int index , ChatRoomType type) {
         this.ChatRoomStage = chatRoomStage;
@@ -90,10 +98,12 @@ public class ChatRoomController implements Initializable {
 
         friendNameLBL.setText(Friend_GroupName);
 
+        //getting and inserting chats from before
         ArrayList<ChatLine> chatLines = jdbc.getChats(userChatRoom);
-        System.out.println(chatLines.size());
+
         for (ChatLine chatline : chatLines) {
 
+            //setting the color and text alignment for sent messages
             if (chatline.getUsername().equals(username)){
 
                 TextFlow textFlow = new TextFlow();
@@ -110,6 +120,7 @@ public class ChatRoomController implements Initializable {
                 Group_info group_info = new Group_info();
                 if (group_info.LinkValidation(chatline.getLine_text())){
                     Hyperlink hyperlink = new Hyperlink(chatline.getLine_text());
+                    hyperlink.setFont(Font.font("Verdana", 20));
                     textFlow.getChildren().add(hyperlink);
 
                 }
@@ -139,22 +150,29 @@ public class ChatRoomController implements Initializable {
                 textFlow.getChildren().add(time);
                 textFlow.getChildren().add(theUsername);
 
+                //getting the group hyperlinks and setting on action for them
                 Group_info group_info = new Group_info();
+                //making sure the text is a hyperlink
                 if (group_info.LinkValidation(chatline.getLine_text())){
+
                     Hyperlink hyperlink = new Hyperlink(chatline.getLine_text());
+                    hyperlink.setFont(Font.font("Verdana", 20));
                     textFlow.getChildren().add(hyperlink);
                     hyperlink.setOnAction(new EventHandler<ActionEvent>() {
                         @Override
                         public void handle(ActionEvent event) {
                             Group_info groupInfo;
                             groupInfo = jdbc.FindHyperLinks(chatline.getLine_text());
+                            groupInfo.setChatId(userChatRoom);
                             groupInfo.setLink(chatline.getLine_text());
                             groupInfo.setStatus(1);
                             groupInfo.setUser(Username);
-                            jdbc.InsertIntoGroup(group_info);
+                            jdbc.InsertIntoGroup(groupInfo);
+                            hyperlink.setVisited(true);
                         }
                     });
                 }
+                //if it's just text
                 else{
                     Text text = new Text(chatline.getLine_text());
                     text.setFill(Color.BLACK);
@@ -172,6 +190,7 @@ public class ChatRoomController implements Initializable {
 
         }
 
+        //showing group participants on chatroom view
         if (type == ChatRoomType.GROUP) {
             participants = jdbc.GetGroupInfo(userChatRoom, Friend_GroupName);
             String Participants = "";
@@ -181,16 +200,22 @@ public class ChatRoomController implements Initializable {
             }
             participantsLBL.setText(Participants);
 
+            //enabling kick menu for the admin
+            for (int i = 1 ; i < participants.size() ; i++ ) {
+                MenuItem person = new MenuItem(participants.get(i));
+                kickMNU.getItems().add(person);
+            }
             if (participants.get(0).equals(username)) {
                 kickMNU.setVisible(true);
-
-                for (int i = 1 ; i < participants.size() ; i++ ){
-                    MenuItem person = new MenuItem(participants.get(i));
-                    int finalI = i;
-                    person.setOnAction(new EventHandler<ActionEvent>() {
+                for (MenuItem item : kickMNU.getItems()) {
+                    item.setOnAction(new EventHandler<ActionEvent>() {
                         @Override
                         public void handle(ActionEvent event) {
-                            jdbc.RemoveParticipant(participants.get(finalI), Friend_GroupName);
+
+                            jdbc.RemoveParticipant(item.getText(), Friend_GroupName);
+                            kickMNU.getItems().remove(item);
+                            participantsLBL.setText(participantsLBL.getText().replaceAll(item.getText()+", ", ""));
+                            event.consume();
                         }
                     });
                 }
@@ -199,141 +224,180 @@ public class ChatRoomController implements Initializable {
                 kickMNU.setVisible(false);
             }
         }
+
+        //not allowing users to send message if they blocked each other
+        if (ChatRoomType.BLOCKED == type){
+            SendHBX.setDisable(true);
+        }
     }
 
     @FXML
     public void SendHandler(ActionEvent event) {
 
-        TextFlow textFlow = new TextFlow();
-
-        Text username = new Text(Username + "\t");
-        username.setFill(Color.GREEN);
-        username.setFont(Font.font("Helvetica", 18));
-        DateTimeFormatter Format = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
-        LocalDateTime dateTime = LocalDateTime.now();
-        Text time = new Text(dateTime.format(Format) + "\n");
-        time.setFill(Color.GRAY);
-        time.setFont(Font.font("Helvetica", 16));
-
-        textFlow.getChildren().add(username);
-        textFlow.getChildren().add(time);
-
-        String textValue;
-
-        Hyperlink hyperlink = new Hyperlink(TextTFD.getText());
-        Text text = new Text(TextTFD.getText());
-
-        Group_info group_info = new Group_info();
-        if (group_info.LinkValidation(TextTFD.getText())) {
-
-            textValue = TextTFD.getText();
-
-            textFlow.getChildren().add(hyperlink);
-        } else {
-            textValue = TextTFD.getText();
-
-            text.setFill(Color.BLACK);
-            text.setFont(Font.font("Verdana", 20));
-            textFlow.getChildren().add(text);
-        }
-
-        textFlow.setTextAlignment(TextAlignment.LEFT);
-        textFlow.setLineSpacing(10.0f);
-        textFlow.setMaxWidth(600);
-        textFlow.setStyle("-fx-background-color: #faf8d7");
-        textFlow.setPadding(new Insets(0, 5, 5, 5));
-        MessagesVBX.getChildren().add(textFlow);
-
-        if (type == ChatRoomType.GROUP) {
-            jdbc.InsertChats(userChatRoom, Username, TextTFD.getText());
-        } else {
-            jdbc.InsertChats(FriendChatRoom, Username, TextTFD.getText());
-            jdbc.InsertChats(userChatRoom, Username, TextTFD.getText());
-        }
-
-        final ContextMenu MessageCMU = new ContextMenu();
-        MenuItem editMessage = new MenuItem("Edit");
-        MenuItem deleteMessage = new MenuItem("Delete");
-
-        editMessage.setOnAction(new EventHandler<ActionEvent>() {
-            public void handle(ActionEvent e) {
-
-                TextTFD.setText(textValue);
-
-                OkBTN.setVisible(true);
-
-                OkBTN.setOnAction(new EventHandler<ActionEvent>() {
-                    @Override
-                    public void handle(ActionEvent event) {
-                        jdbc.editText(TextTFD.getText(), textValue, userChatRoom);
-                        jdbc.editText(TextTFD.getText(), textValue, FriendChatRoom);
-
-                        Group_info group_info = new Group_info();
-                        if (group_info.LinkValidation(TextTFD.getText())) {
-
-                            textFlow.getChildren().remove(hyperlink);
-                            Hyperlink newHyperlink = new Hyperlink(TextTFD.getText());
-                            textFlow.getChildren().add(newHyperlink);
-
-                        } else {
-
-                            Text newText = new Text(TextTFD.getText());
-                            newText.setFill(Color.BLACK);
-                            newText.setFont(Font.font("Verdana", 20));
-                            textFlow.getChildren().remove(text);
-                            textFlow.getChildren().add(newText);
-
-                        }
-                        TextTFD.clear();
-                        OkBTN.setVisible(false);
-                    }
-                });
-
-            }
-        });
-
-        deleteMessage.setOnAction(new EventHandler<ActionEvent>() {
-            public void handle(ActionEvent e) {
-                jdbc.deleteText(textValue, userChatRoom);
-                jdbc.deleteText(textValue, FriendChatRoom);
-                MessagesVBX.getChildren().remove(textFlow);
-            }
-        });
-
-        MessageCMU.getItems().add(editMessage);
-        MessageCMU.getItems().add(deleteMessage);
-
-        textFlow.addEventHandler(MouseEvent.MOUSE_CLICKED,
-                new EventHandler<MouseEvent>() {
-                    @Override
-                    public void handle(MouseEvent e) {
-                        if (e.getButton() == MouseButton.SECONDARY)
-                            MessageCMU.show(textFlow, e.getScreenX(), e.getScreenY());
-                    }
-                });
         if (!TextTFD.getText().isEmpty()) {
 
-          Timer timer = new Timer();
+            //starting the timer
+            Timer timer = new Timer();
             timer.start();
-            while (!timer.check) {
-                MessagesVBX.setOnKeyPressed(new EventHandler<KeyEvent>() {
-                    @Override
-                    public void handle(KeyEvent event) {
-                        if (event.getCode() == KeyCode.B){
-                            jdbc.deleteText(textValue, userChatRoom);
-                            jdbc.deleteText(textValue, FriendChatRoom);
-                            MessagesVBX.getChildren().remove(textFlow);
-                        }
-                    }
-                });
 
+            //text attributes
+            TextFlow textFlow = new TextFlow();
+
+            Text username = new Text(Username + "\t");
+            username.setFill(Color.GREEN);
+            username.setFont(Font.font("Helvetica", 18));
+            DateTimeFormatter Format = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
+            LocalDateTime dateTime = LocalDateTime.now();
+            Text time = new Text(dateTime.format(Format) + "\n");
+            time.setFill(Color.GRAY);
+            time.setFont(Font.font("Helvetica", 16));
+
+            textFlow.getChildren().add(username);
+            textFlow.getChildren().add(time);
+
+            String textValue;
+
+            Hyperlink hyperlink = new Hyperlink(TextTFD.getText());
+            Text text = new Text(TextTFD.getText());
+
+            Group_info group_info = new Group_info();
+            if (group_info.LinkValidation(TextTFD.getText())) {
+
+                hyperlink.setFont(Font.font("Verdana", 20));
+                textValue = TextTFD.getText();
+                textFlow.getChildren().add(hyperlink);
+
+            } else {
+                textValue = TextTFD.getText();
+
+                text.setFill(Color.BLACK);
+                text.setFont(Font.font("Verdana", 20));
+                textFlow.getChildren().add(text);
             }
+
+            textFlow.setTextAlignment(TextAlignment.LEFT);
+            textFlow.setLineSpacing(10.0f);
+            textFlow.setMaxWidth(600);
+            textFlow.setStyle("-fx-background-color: #faf8d7");
+            textFlow.setPadding(new Insets(0, 5, 5, 5));
+            MessagesVBX.getChildren().add(textFlow);
+
+            //storing data
+            if (type == ChatRoomType.GROUP) {
+                jdbc.InsertChats(userChatRoom, Username, TextTFD.getText());
+            } else {
+                jdbc.InsertChats(FriendChatRoom, Username, TextTFD.getText());
+                jdbc.InsertChats(userChatRoom, Username, TextTFD.getText());
+            }
+
+            //unsent message
+            unsendBTN.setOnAction(new EventHandler<ActionEvent>() {
+                @Override
+                public void handle(ActionEvent event) {
+                    if (!timer.check) {
+                        jdbc.deleteText(textValue, userChatRoom);
+                        jdbc.deleteText(textValue, FriendChatRoom);
+                        MessagesVBX.getChildren().remove(textFlow);
+                    }
+
+                }
+            });
+
+
+            //Context menu for sent messages
+            final ContextMenu MessageCMU = new ContextMenu();
+            MenuItem editMessage = new MenuItem("Edit");
+            MenuItem deleteMessage = new MenuItem("Delete");
+
+            editMessage.setOnAction(new EventHandler<ActionEvent>() {
+                public void handle(ActionEvent e) {
+
+                    TextTFD.setText(textValue);
+
+                    OkBTN.setVisible(true);
+                    SendBTN.setDisable(true);
+
+                    OkBTN.setOnAction(new EventHandler<ActionEvent>() {
+                        @Override
+                        public void handle(ActionEvent event) {
+                            jdbc.editText(TextTFD.getText(), textValue, userChatRoom);
+                            jdbc.editText(TextTFD.getText(), textValue, FriendChatRoom);
+
+                            Group_info group_info = new Group_info();
+                            if (group_info.LinkValidation(TextTFD.getText())) {
+
+                                textFlow.getChildren().remove(hyperlink);
+                                Hyperlink newHyperlink = new Hyperlink(TextTFD.getText());
+                                hyperlink.setFont(Font.font("Verdana", 20));
+                                textFlow.getChildren().add(newHyperlink);
+
+                            } else {
+
+                                Text newText = new Text(TextTFD.getText());
+                                newText.setFill(Color.BLACK);
+                                newText.setFont(Font.font("Verdana", 20));
+                                textFlow.getChildren().remove(text);
+                                textFlow.getChildren().add(newText);
+
+                            }
+                            TextTFD.clear();
+                            OkBTN.setVisible(false);
+                            SendBTN.setDisable(false);
+                        }
+                    });
+
+                }
+            });
+
+            deleteMessage.setOnAction(new EventHandler<ActionEvent>() {
+                public void handle(ActionEvent e) {
+                    jdbc.deleteText(textValue, userChatRoom);
+                    jdbc.deleteText(textValue, FriendChatRoom);
+                    MessagesVBX.getChildren().remove(textFlow);
+                }
+            });
+
+            MessageCMU.getItems().add(editMessage);
+            MessageCMU.getItems().add(deleteMessage);
+
+            textFlow.addEventHandler(MouseEvent.MOUSE_CLICKED,
+                    new EventHandler<MouseEvent>() {
+                        @Override
+                        public void handle(MouseEvent e) {
+                            if (e.getButton() == MouseButton.SECONDARY)
+                                MessageCMU.show(textFlow, e.getScreenX(), e.getScreenY());
+                        }
+            });
+
         }
 
         TextTFD.clear();
 
     }
 
+    private void setUnsentAccelerator(Button button) {
+        if (button == null) {
+            System.out.println("Button is null");
+        }
+        Scene scene = button.getScene();
+        if (scene == null) {
+            throw new IllegalArgumentException("setSaveAccelerator must be called when a button is attached to a scene");
+        }
+
+        scene.getAccelerators().put(
+                new KeyCodeCombination(KeyCode.B),
+                new Runnable() {
+                    @FXML
+                    public void run() {
+
+                        button.fire();
+                    }
+                }
+        );
+    }
+    public void setup() {
+        setUnsentAccelerator(unsendBTN);
+    }
 
     @FXML
     public void BackHandler (ActionEvent event){
@@ -356,6 +420,8 @@ public class ChatRoomController implements Initializable {
 
     @FXML
     public void ClearHistory (ActionEvent event){
+
+        //making a alert
         Alert alert = new Alert(Alert.AlertType.NONE);
         alert.setContentText("Clear History?");
 
@@ -363,31 +429,34 @@ public class ChatRoomController implements Initializable {
         ButtonType for_everyone = new ButtonType("for everyone", ButtonBar.ButtonData.APPLY);
         ButtonType cancel = new ButtonType("Cancel", ButtonBar.ButtonData.CANCEL_CLOSE);
 
-        alert.getDialogPane().getButtonTypes().addAll(for_me ,for_everyone ,cancel);
+        if(ChatRoomType.GROUP == type){
+            alert.getDialogPane().getButtonTypes().addAll(for_everyone ,cancel);
+        }
+        else if (ChatRoomType.PERSONAL == type){
+            alert.getDialogPane().getButtonTypes().addAll(for_me ,for_everyone ,cancel);
+        }
 
         Optional<ButtonType> result = alert.showAndWait();
-        System.out.println(result.get());
         if(!result.isPresent()){
             alert.close();
         }
-        // alert is exited, no button has been pressed.
+        // (code owner)alert is exited, no button has been pressed.
         else if(result.get() == for_everyone){
-
             if (ChatRoomType.GROUP == type){
                 jdbc.ClearChats(userChatRoom);
+                MessagesVBX.getChildren().removeAll(MessagesVBX.getChildren());
             }
             else {
                 jdbc.ClearChats(FriendChatRoom);
                 jdbc.ClearChats(userChatRoom);
+                MessagesVBX.getChildren().removeAll(MessagesVBX.getChildren());
             }
-             MessagesVBX.getChildren().removeAll();
+
         }
-        //oke button is pressed
         else if(result.get() == for_me){
             jdbc.ClearChats(userChatRoom);
-            MessagesVBX.getChildren().removeAll();
+            MessagesVBX.getChildren().removeAll(MessagesVBX.getChildren());
         }
-        // cancel button is pressed
     }
 
     @Override

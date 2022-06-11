@@ -53,11 +53,9 @@ public class RegisterController implements Initializable {
 
     private String VCode;
 
-    public Person getPerson() {
-        return person;
-    }
-
     private Person person;
+
+    //getting the stage
     public void initFunction(Stage registerStage){
         VCodeTFD.setVisible(false);
         this.RegisterStage = registerStage;}
@@ -88,11 +86,14 @@ public class RegisterController implements Initializable {
 
         JDBC jdbc = new JDBC();
 
+        //valid makes sure all the fields are complete before showing the code verification text field
         boolean valid = true;
 
         person = new Person();
 
+        //checking username,password and email validation
         if (Person.UsernamePasswordValidation(UsernameTFD.getText())){
+            //checking if username already exists
             if (jdbc.checkExistenceUser("username" , UsernameTFD.getText())){
                 UMessageTXT.setText("This username already exists");
                 valid = false;
@@ -120,6 +121,7 @@ public class RegisterController implements Initializable {
 
 
         if (Person.EmailValidation(EmailTFD.getText())){
+            //checking if email already exists
             if (jdbc.checkExistenceUser("email" , EmailTFD.getText())){
                 MessageTXT.setText("This username already exists");
                 valid = false;
@@ -132,16 +134,18 @@ public class RegisterController implements Initializable {
         else{
             MessageTXT.setText("Invalid Email");
             valid = false;
-            System.out.println(UMessageTXT.getText());
             EmailTFD.clear();
         }
+        //verifying the email,registering and storing user's info
         try{
             if (valid && !VCode.isEmpty()){
                 if ( VCodeTFD.getText().equals(VCode)){
+
                     jdbc.InsertIntoTB(person);
 
                     ArrayList<Person> Users = jdbc.ReadIntoArrayList();
 
+                    //going to main page
                     FXMLLoader loader = new FXMLLoader();
                     loader.setLocation(getClass().getResource("..\\view\\MainPageView.fxml"));
                     try{
@@ -152,7 +156,12 @@ public class RegisterController implements Initializable {
                         e.printStackTrace();
                     }
                     MainPageController controller = loader.getController();
-                    controller.initFunction(RegisterStage , Users  , Users.size()-1);
+                    int i;
+                    for ( i = 0 ; i < Users.size() ; i++){
+                        if (Users.get(i).getUserName().equals(person.getUserName()))
+                            break;
+                    }
+                    controller.initFunction(RegisterStage , Users  , i);
 
                     Scene scene = new Scene(loader.getRoot());
                     RegisterStage.setScene(scene);
@@ -165,6 +174,7 @@ public class RegisterController implements Initializable {
             }
         }catch (NullPointerException e){
             if ( valid ) {
+                //generating verification code and sending it via email
                 Random random = new Random();
                 VCode = String.format("%04d", random.nextInt(10000));
                 System.out.println(VCode);
@@ -176,6 +186,7 @@ public class RegisterController implements Initializable {
         }
     }
 
+    //clearing all text fields
     public void clearTextFields(){
         UMessageTXT.setText("");
         PMessageTXT.setText("");

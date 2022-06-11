@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 public class JDBC {
 
+    //Users
     public void InsertIntoTB (Person person){
 
         try {
@@ -16,8 +17,8 @@ public class JDBC {
 
             pdst = connection.prepareStatement("insert into user (username , passwordHash, email) values(?,?,?)");
             pdst.setString(1,person.getUserName());
-            pdst.setString(3,person.getPasswordHash());
-            pdst.setString(4,person.getEmail());
+            pdst.setString(2,person.getPasswordHash());
+            pdst.setString(3,person.getEmail());
 
             pdst.executeUpdate();
 
@@ -56,6 +57,8 @@ public class JDBC {
         }
         return null;
     }
+
+
     public boolean checkExistenceUser(String field , String theValue){
 
         try {
@@ -83,7 +86,7 @@ public class JDBC {
         return true;
     }
 
-    public boolean checkExistenceRelationships(String field , String username , int status){
+    /*public boolean checkExistenceRelationships(String field , String username , int status){
 
         try {
             Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/person", "root", "91117033");
@@ -107,7 +110,7 @@ public class JDBC {
             e.printStackTrace();
         }
         return true;
-    }
+    }*/
 
     public void sendFriendRequest (String sender , String receiver ,int status){
 
@@ -180,6 +183,7 @@ public class JDBC {
             e.printStackTrace();
         }
     }
+
     public ArrayList<Relationships > GetRelations (String username , int status){
 
         Connection connection = null;
@@ -211,6 +215,7 @@ public class JDBC {
     }
 
 
+    //relation that were set from the other user
     public ArrayList<Relationships > GetReceivedRelations (String username , int status){
 
         Connection connection = null;
@@ -239,6 +244,7 @@ public class JDBC {
         return null;
     }
 
+    //Chat id
     public void SetChatID (String username ,String friend) {
 
         Connection connection = null;
@@ -284,7 +290,7 @@ public class JDBC {
         return -10;
     }
 
-
+    //Chats
     public void InsertChats (int ChatID,String Username ,String Line_text){
 
         Connection connection = null;
@@ -352,14 +358,15 @@ public class JDBC {
         return null;
     }
 
-    public void InsertIntoGroup (Group_info newGroup ){
+    //Groups
+    public void InsertIntoGroup (Group_info newGroup){
 
         try {
             Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/person", "root", "91117033");
 
             Statement statement = connection.createStatement();
 
-            String SQL = "INSERT INTO person.group ( group_name , added_people , group_admin , groupLink , status, idGroup ) " +
+            String SQL = "INSERT IGNORE INTO person.group ( group_name , added_people , group_admin , groupLink , status, idGroup ) " +
                     "VALUES ('"+ newGroup.getName() +"','"+newGroup.getUser()+"' , '"+newGroup.getAdmin()+"', " +
                     "'"+newGroup.getLink()+"' , '"+newGroup.getStatus()+"' , '"+newGroup.getChatId()+"');";
 
@@ -379,7 +386,7 @@ public class JDBC {
             Statement statement = connection.createStatement();
 
             String sql = "SELECT idGroup , group_name , group_admin , added_people , groupLink, status " +
-                    "FROM person.group WHERE added_people = '"+username+"' OR group_admin = '"+username+"';";
+                    "FROM person.group WHERE added_people = '"+username+"';";
 
             ResultSet resultSet = statement.executeQuery(sql);
 
@@ -405,7 +412,7 @@ public class JDBC {
 
             Statement statement = connection.createStatement();
 
-            String SQL = "select * from person.group where groupLink = '" + link +"' AND added_people = 'empty';";
+            String SQL = "select * from person.group where groupLink = '" + link +"' AND status = '0';";
 
             ResultSet resultSet = statement.executeQuery(SQL);
 
@@ -425,7 +432,50 @@ public class JDBC {
         }
         return null;
     }
+    public ArrayList<String> GetGroupInfo ( int Chat_id , String groupName ){
 
+        Connection connection = null;
+        try {
+            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/person", "root", "91117033");
+
+            Statement statement = connection.createStatement();
+
+            String SQL = "SELECT added_people FROM person.group WHERE group_name = '"+ groupName +"';";
+
+            ResultSet resultSet = statement.executeQuery(SQL);
+
+            ArrayList<String> users = new ArrayList<>();
+
+            while (resultSet.next()){
+                users.add(resultSet.getString("added_people"));
+            }
+
+            return users;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public void RemoveParticipant( String name , String group_name ){
+
+        Connection connection = null;
+        try {
+            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/person", "root", "91117033");
+
+            Statement statement = connection.createStatement();
+
+            String SQL = "DELETE FROM person.group WHERE added_people = '"+ name +"' AND group_name = '"+ group_name +"';";
+
+            statement.executeUpdate(SQL);
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    //Each text message
     public void editText(String newText , String oldText , int chatId ){
 
         Connection connection = null;
@@ -459,49 +509,4 @@ public class JDBC {
         }
     }
 
-    public ArrayList<String> GetGroupInfo ( int Chat_id , String groupName ){
-
-        Connection connection = null;
-        try {
-            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/person", "root", "91117033");
-
-            Statement statement = connection.createStatement();
-
-            String SQL = "SELECT  FROM person.group WHERE group_name = '"+ groupName +"' AND added_people <> 'empty';";
-
-            ResultSet resultSet = statement.executeQuery(SQL);
-
-            ArrayList<String> users = null;
-
-            if (resultSet.next()){
-                users.add(resultSet.getString("group_admin"));
-            }
-            while (resultSet.next()){
-                users.add(resultSet.getString("added_people"));
-            }
-
-            return users;
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
-
-    public void RemoveParticipant( String name , String group_name ){
-
-        Connection connection = null;
-        try {
-            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/person", "root", "91117033");
-
-            Statement statement = connection.createStatement();
-
-            String SQL = "DELETE FROM person.group WHERE added_people = '"+ name +"' AND group_name = '"+ group_name +"';";
-
-            statement.executeUpdate(SQL);
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
 }

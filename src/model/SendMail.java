@@ -9,6 +9,7 @@ public class SendMail {
 
     private final String userEmail;
 
+    //getting user's email address
     public SendMail(String Email) {
         this.userEmail = Email;
     }

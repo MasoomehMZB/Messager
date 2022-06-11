@@ -4,20 +4,16 @@ import java.util.regex.Pattern;
 
 public class Group_info {
     private String name;
-
-    public Group_info(String name, String admin) {
-        this.name = name;
-        Admin = admin;
-    }
-
     private String link;
     private String Admin;
     private  int ChatId;
     private String user;
+    private int status;
+
+    //getters and setters
     public int getChatId() {
         return ChatId;
     }
-
     public void setChatId(int chatId) {
         ChatId = chatId;
     }
@@ -28,8 +24,6 @@ public class Group_info {
     public void setStatus(int status) {
         this.status = status;
     }
-
-    private int status;
 
     public String getName() {
         return name;
@@ -63,6 +57,7 @@ public class Group_info {
         Admin = admin;
     }
 
+    //constructors
     public Group_info(String name, String link, String user , String admin , int status , int ChatId) {
         this.name = name;
         this.link = link;
@@ -76,7 +71,13 @@ public class Group_info {
 
     }
 
+    public Group_info(String name, String admin) {
+        this.name = name;
+        Admin = admin;
+    }
+
+    //link validation method
     public boolean LinkValidation(String Link){
-        return Pattern.matches("@\\S{6,20}", Link);
+        return Pattern.matches("@\\S{5,20}", Link);
     }
 }

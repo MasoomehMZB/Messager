@@ -1,17 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.*?>
-<?import javafx.scene.text.*?>
-<?import javafx.scene.image.*?>
 <?import java.lang.*?>
-<?import java.util.*?>
+<?import javafx.geometry.*?>
 <?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
 <BorderPane prefHeight="703.0" prefWidth="774.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ChatRoomController">
    <bottom>
-      <HBox alignment="CENTER" nodeOrientation="RIGHT_TO_LEFT" prefHeight="55.0" prefWidth="774.0" spacing="20.0" style="-fx-background-color: #103e69;" BorderPane.alignment="CENTER">
+      <HBox fx:id="SendHBX" alignment="CENTER" nodeOrientation="RIGHT_TO_LEFT" prefHeight="55.0" prefWidth="774.0" spacing="20.0" style="-fx-background-color: #103e69;" BorderPane.alignment="CENTER">
          <children>
             <Button fx:id="SendBTN" contentDisplay="GRAPHIC_ONLY" maxHeight="40.0" maxWidth="40.0" minHeight="40.0" minWidth="40.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0" style="-fx-background-radius: 50%;">
                <graphic>
@@ -44,6 +43,12 @@
                </children>
             </Group>
          </children>
+         <BorderPane.margin>
+            <Insets />
+         </BorderPane.margin>
+         <padding>
+            <Insets right="30.0" />
+         </padding>
       </HBox>
    </bottom>
    <top>
@@ -54,9 +59,6 @@
                 <MenuItem fx:id="BackMBN" mnemonicParsing="false" text="Back" />
                 <MenuItem fx:id="ClearHistoryMBN" mnemonicParsing="false" text="ClearHistory" />
                   <Menu fx:id="kickMNU" mnemonicParsing="false" text="Kick" visible="false">
-                    <items>
-                      <MenuItem mnemonicParsing="false" text="Action 1" />
-                    </items>
                   </Menu>
               </items>
                <font>
@@ -73,15 +75,16 @@
                   <Label fx:id="participantsLBL" textFill="#747bab" />
                </children>
             </VBox>
+            <Button fx:id="unsendBTN" maxHeight="1.0" maxWidth="1.0" minHeight="1.0" minWidth="1.0" mnemonicParsing="false" prefHeight="1.0" prefWidth="1.0" text="unsend" visible="false" />
         </items>
       </ToolBar>
    </top>
    <center>
       <ScrollPane hbarPolicy="NEVER" pannable="true" prefHeight="632.0" prefWidth="774.0" style="-fx-background-color: #103e69;" BorderPane.alignment="CENTER">
          <content>
-            <VBox fx:id="MessagesVBX" alignment="CENTER" prefHeight="605.0" prefWidth="756.0" spacing="15.0">
+            <VBox fx:id="MessagesVBX" alignment="TOP_CENTER" prefHeight="605.0" prefWidth="756.0" spacing="15.0">
                <padding>
-                  <Insets bottom="5.0" top="5.0" />
+                  <Insets bottom="5.0" top="19.0" />
                </padding></VBox>
          </content>
       </ScrollPane>

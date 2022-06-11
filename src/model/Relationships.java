@@ -1,6 +1,8 @@
 package model;
 
 public class Relationships {
+
+    //stores other person's username and their relationship's status
     private String username;
 
     private int status;

@@ -69,17 +69,20 @@ public class SignInController implements Initializable {
 
     @FXML
     public void LoginHandler(ActionEvent event) {
-        clearTextFields();
+        clearTexts();
         JDBC jdbc = new JDBC();
         Users = jdbc.ReadIntoArrayList();
 
         int i;
+        //searching for the input username
         i = searchForUsername();
         Person person = new Person();
+        //getting password's hash code
         String passwordHash = person.setPasswordHash(PasswordPFD.getText());
         if ( i != -1 ){
             if (Users.get(i).getPasswordHash().equals(passwordHash)) {
 
+                //going to the main page
                 FXMLLoader loader = new FXMLLoader();
                 loader.setLocation(getClass().getResource("..\\view\\MainPageView.fxml"));
                 try {
@@ -103,6 +106,9 @@ public class SignInController implements Initializable {
             UMessageTXT.setText("Make sure the username field is filled and username is correct.");
         }
     }
+
+    //searches for username and if it exists returns the username's index in arraylist
+    //else returns -1
     public int searchForUsername(){
         for (int i = 0 ; i < Users.size() ; i++) {
             if ( !UsernameTFD.getText().isEmpty() && Users.get(i).getUserName().equals(UsernameTFD.getText())){
@@ -112,7 +118,8 @@ public class SignInController implements Initializable {
         return -1;
     }
 
-    public void clearTextFields(){
+    //clearing all texts
+    public void clearTexts(){
         UMessageTXT.setText("");
         PMessageTXT.setText("");
     }
