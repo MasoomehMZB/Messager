@@ -3,49 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="ce0b43b3-4080-435c-811a-d2c13589a74b" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Messager/controller/ChatRoomController$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Messager/controller/ChatRoomController$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Messager/controller/ChatRoomController$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Messager/controller/ChatRoomController$2.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Messager/controller/ChatRoomController$3$1.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Messager/controller/ChatRoomController$3.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Messager/controller/ChatRoomController$3.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Messager/controller/ChatRoomController$4.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Messager/controller/ChatRoomController$4.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Messager/controller/ChatRoomController$5.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Messager/controller/ChatRoomController$5.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Messager/controller/ChatRoomController$6.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Messager/controller/ChatRoomController$6.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Messager/controller/ChatRoomController.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Messager/controller/ChatRoomController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Messager/controller/MainPageController$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Messager/controller/MainPageController$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Messager/controller/MainPageController$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Messager/controller/MainPageController$2.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Messager/controller/MainPageController$3.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Messager/controller/MainPageController$3.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Messager/controller/MainPageController$4.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Messager/controller/MainPageController$4.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Messager/controller/MainPageController$5.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Messager/controller/MainPageController$5.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Messager/controller/MainPageController.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Messager/controller/MainPageController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Messager/controller/RegisterController.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Messager/controller/RegisterController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Messager/controller/SignInController.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Messager/controller/SignInController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Messager/model/ChatLine.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Messager/model/ChatLine.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Messager/model/ChatRoomType.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Messager/model/ChatRoomType.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Messager/model/Group_info.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Messager/model/Group_info.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Messager/model/JDBC.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Messager/model/JDBC.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Messager/model/Person.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Messager/model/Person.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Messager/model/Relationships.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Messager/model/Relationships.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Messager/model/SendMail$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Messager/model/SendMail$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Messager/model/SendMail.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Messager/model/SendMail.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Messager/model/Timer.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Messager/model/Timer.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Messager/view/ChatRoomView.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Messager/view/ChatRoomView.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Messager/view/MainPageView.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Messager/view/MainPageView.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Messager/view/StyleSheet.css" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Messager/view/StyleSheet.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/controller/ChatRoomController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/ChatRoomController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/controller/MainPageController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/MainPageController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/controller/RegisterController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/RegisterController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/controller/SignInController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/SignInController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/model/ChatLine.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/ChatLine.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/model/ChatRoomType.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/ChatRoomType.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/model/Group_info.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/Group_info.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/model/JDBC.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/JDBC.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/model/Person.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/Person.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/model/Relationships.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/Relationships.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/model/SendMail.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/SendMail.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/model/Timer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/Timer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/view/ChatRoomView.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/ChatRoomView.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/view/MainPageView.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/MainPageView.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/view/StyleSheet.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/StyleSheet.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -75,19 +33,19 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ASKED_ADD_EXTERNAL_FILES": "true",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "last.edited.regexp": "@negin",
-    "last_opened_file_path": "E:/Messager",
-    "project.structure.last.edited": "Libraries",
-    "project.structure.proportion": "0.0",
-    "project.structure.side.proportion": "0.2"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;last.edited.regexp&quot;: &quot;@negin&quot;,
+    &quot;last_opened_file_path&quot;: &quot;E:/Messager&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Libraries&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="E:\Messager\src\Resources\img" />
@@ -147,24 +105,6 @@
           <properties class="java.lang.ClassNotFoundException" package="java.lang" />
           <option name="timeStamp" value="4" />
         </breakpoint>
-        <line-breakpoint enabled="true" type="java-method">
-          <url>file://$PROJECT_DIR$/src/controller/ChatRoomController.java</url>
-          <line>377</line>
-          <properties class="controller.ChatRoomController" method="setUnsentAccelerator">
-            <option name="EMULATED" value="true" />
-            <option name="WATCH_EXIT" value="false" />
-          </properties>
-          <option name="timeStamp" value="91" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-method">
-          <url>file://$PROJECT_DIR$/src/controller/ChatRoomController.java</url>
-          <line>397</line>
-          <properties class="controller.ChatRoomController" method="setup">
-            <option name="EMULATED" value="true" />
-            <option name="WATCH_EXIT" value="false" />
-          </properties>
-          <option name="timeStamp" value="93" />
-        </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
   </component>

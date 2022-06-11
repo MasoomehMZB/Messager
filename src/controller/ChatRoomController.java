@@ -432,7 +432,7 @@ public class ChatRoomController implements Initializable {
         if(ChatRoomType.GROUP == type){
             alert.getDialogPane().getButtonTypes().addAll(for_everyone ,cancel);
         }
-        else if (ChatRoomType.PERSONAL == type){
+        else if (ChatRoomType.PERSONAL == type || ChatRoomType.BLOCKED == type){
             alert.getDialogPane().getButtonTypes().addAll(for_me ,for_everyone ,cancel);
         }
 
