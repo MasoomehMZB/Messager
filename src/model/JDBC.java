@@ -366,9 +366,9 @@ public class JDBC {
 
             Statement statement = connection.createStatement();
 
-            String SQL = "INSERT IGNORE INTO person.group ( group_name , added_people , group_admin , groupLink , status, idGroup ) " +
-                    "VALUES ('"+ newGroup.getName() +"','"+newGroup.getUser()+"' , '"+newGroup.getAdmin()+"', " +
-                    "'"+newGroup.getLink()+"' , '"+newGroup.getStatus()+"' , '"+newGroup.getChatId()+"');";
+            String SQL = "INSERT IGNORE INTO person.group ( group_name , added_people , group_admin , groupLink , status ) " +
+                    "VALUES ('"+ newGroup.getName() +"','"+newGroup.getUser()+"' , '"+newGroup.getAdmin()+"' , " +
+                    "'"+newGroup.getLink()+"' , '"+newGroup.getStatus()+"');";
 
             statement.executeUpdate(SQL);
 
@@ -432,7 +432,7 @@ public class JDBC {
         }
         return null;
     }
-    public ArrayList<String> GetGroupInfo ( int Chat_id , String groupName ){
+    public ArrayList<String> GetGroupInfo ( String groupName ){
 
         Connection connection = null;
         try {

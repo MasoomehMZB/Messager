@@ -163,12 +163,11 @@ public class ChatRoomController implements Initializable {
                         public void handle(ActionEvent event) {
                             Group_info groupInfo;
                             groupInfo = jdbc.FindHyperLinks(chatline.getLine_text());
-                            groupInfo.setChatId(userChatRoom);
                             groupInfo.setLink(chatline.getLine_text());
                             groupInfo.setStatus(1);
                             groupInfo.setUser(Username);
                             jdbc.InsertIntoGroup(groupInfo);
-                            hyperlink.setVisited(true);
+                            event.consume();
                         }
                     });
                 }
@@ -192,7 +191,7 @@ public class ChatRoomController implements Initializable {
 
         //showing group participants on chatroom view
         if (type == ChatRoomType.GROUP) {
-            participants = jdbc.GetGroupInfo(userChatRoom, Friend_GroupName);
+            participants = jdbc.GetGroupInfo(Friend_GroupName);
             String Participants = "";
 
             for (String person : participants){
