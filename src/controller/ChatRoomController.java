@@ -1,12 +1,10 @@
 package controller;
 
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
-import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.input.*;
@@ -25,6 +23,7 @@ import java.net.URL;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
@@ -77,11 +76,9 @@ public class ChatRoomController implements Initializable {
 
     private ArrayList<Person> users;
 
-    private ArrayList<String> participants;
-
     private int index;
 
-    private JDBC jdbc = new JDBC();
+    private final JDBC jdbc = new JDBC();
 
 
     //getting the stage and chatroom info
@@ -104,10 +101,10 @@ public class ChatRoomController implements Initializable {
         for (ChatLine chatline : chatLines) {
 
             //setting the color and text alignment for sent messages
+            TextFlow textFlow = new TextFlow();
+            Text theUsername;
             if (chatline.getUsername().equals(username)){
-
-                TextFlow textFlow = new TextFlow();
-                Text theUsername = new Text(chatline.getUsername() + "\t");
+                theUsername = new Text(chatline.getUsername() + "\t");
                 theUsername.setFill(Color.GREEN);
                 theUsername.setFont(Font.font("Helvetica", 18));
                 Text time = new Text(chatline.getTime() + "\n");
@@ -135,12 +132,9 @@ public class ChatRoomController implements Initializable {
                 textFlow.setLineSpacing(10.0f);
                 textFlow.setMaxWidth(600);
                 textFlow.setStyle("-fx-background-color: #faf8d7");
-                textFlow.setPadding (new Insets(0 , 5 , 5 , 5));
-                MessagesVBX.getChildren().add(textFlow);
             }
             else {
-                TextFlow textFlow = new TextFlow();
-                Text theUsername = new Text(chatline.getUsername() + "\n");
+                theUsername = new Text(chatline.getUsername() + "\n");
                 theUsername.setFill(Color.GREEN);
                 theUsername.setFont(Font.font("Helvetica", 18));
                 Text time = new Text(chatline.getTime() + "\t");
@@ -158,17 +152,14 @@ public class ChatRoomController implements Initializable {
                     Hyperlink hyperlink = new Hyperlink(chatline.getLine_text());
                     hyperlink.setFont(Font.font("Verdana", 20));
                     textFlow.getChildren().add(hyperlink);
-                    hyperlink.setOnAction(new EventHandler<ActionEvent>() {
-                        @Override
-                        public void handle(ActionEvent event) {
-                            Group_info groupInfo;
-                            groupInfo = jdbc.FindHyperLinks(chatline.getLine_text());
-                            groupInfo.setLink(chatline.getLine_text());
-                            groupInfo.setStatus(1);
-                            groupInfo.setUser(Username);
-                            jdbc.InsertIntoGroup(groupInfo);
-                            event.consume();
-                        }
+                    hyperlink.setOnAction(event -> {
+                        Group_info groupInfo;
+                        groupInfo = jdbc.FindHyperLinks(chatline.getLine_text());
+                        groupInfo.setLink(chatline.getLine_text());
+                        groupInfo.setStatus(1);
+                        groupInfo.setUser(Username);
+                        jdbc.InsertIntoGroup(groupInfo);
+                        event.consume();
                     });
                 }
                 //if it's just text
@@ -183,15 +174,15 @@ public class ChatRoomController implements Initializable {
                 textFlow.setLineSpacing(10.0f);
                 textFlow.setMaxWidth(600);
                 textFlow.setStyle("-fx-background-color: #c2ede5");
-                textFlow.setPadding (new Insets(0 , 5 , 5 , 5));
-                MessagesVBX.getChildren().add(textFlow);
             }
+            textFlow.setPadding (new Insets(0 , 5 , 5 , 5));
+            MessagesVBX.getChildren().add(textFlow);
 
         }
 
         //showing group participants on chatroom view
         if (type == ChatRoomType.GROUP) {
-            participants = jdbc.GetGroupInfo(Friend_GroupName);
+            ArrayList<String> participants = jdbc.GetGroupInfo(Friend_GroupName);
             String Participants = "";
 
             for (String person : participants){
@@ -200,22 +191,19 @@ public class ChatRoomController implements Initializable {
             participantsLBL.setText(Participants);
 
             //enabling kick menu for the admin
-            for (int i = 1 ; i < participants.size() ; i++ ) {
+            for (int i = 1; i < participants.size() ; i++ ) {
                 MenuItem person = new MenuItem(participants.get(i));
                 kickMNU.getItems().add(person);
             }
             if (participants.get(0).equals(username)) {
                 kickMNU.setVisible(true);
                 for (MenuItem item : kickMNU.getItems()) {
-                    item.setOnAction(new EventHandler<ActionEvent>() {
-                        @Override
-                        public void handle(ActionEvent event) {
+                    item.setOnAction(event -> {
 
-                            jdbc.RemoveParticipant(item.getText(), Friend_GroupName);
-                            kickMNU.getItems().remove(item);
-                            participantsLBL.setText(participantsLBL.getText().replaceAll(item.getText()+", ", ""));
-                            event.consume();
-                        }
+                        jdbc.RemoveParticipant(item.getText(), Friend_GroupName);
+                        kickMNU.getItems().remove(item);
+                        participantsLBL.setText(participantsLBL.getText().replaceAll(item.getText()+", ", ""));
+                        event.consume();
                     });
                 }
             }
@@ -290,16 +278,13 @@ public class ChatRoomController implements Initializable {
             }
 
             //unsent message
-            unsendBTN.setOnAction(new EventHandler<ActionEvent>() {
-                @Override
-                public void handle(ActionEvent event) {
-                    if (!timer.check) {
-                        jdbc.deleteText(textValue, userChatRoom);
-                        jdbc.deleteText(textValue, FriendChatRoom);
-                        MessagesVBX.getChildren().remove(textFlow);
-                    }
-
+            unsendBTN.setOnAction(event1 -> {
+                if (!timer.check) {
+                    jdbc.deleteText(textValue, userChatRoom);
+                    jdbc.deleteText(textValue, FriendChatRoom);
+                    MessagesVBX.getChildren().remove(textFlow);
                 }
+
             });
 
 
@@ -308,65 +293,55 @@ public class ChatRoomController implements Initializable {
             MenuItem editMessage = new MenuItem("Edit");
             MenuItem deleteMessage = new MenuItem("Delete");
 
-            editMessage.setOnAction(new EventHandler<ActionEvent>() {
-                public void handle(ActionEvent e) {
+            editMessage.setOnAction(e -> {
 
-                    TextTFD.setText(textValue);
+                TextTFD.setText(textValue);
 
-                    OkBTN.setVisible(true);
-                    SendBTN.setDisable(true);
+                OkBTN.setVisible(true);
+                SendBTN.setDisable(true);
 
-                    OkBTN.setOnAction(new EventHandler<ActionEvent>() {
-                        @Override
-                        public void handle(ActionEvent event) {
-                            jdbc.editText(TextTFD.getText(), textValue, userChatRoom);
-                            jdbc.editText(TextTFD.getText(), textValue, FriendChatRoom);
+                OkBTN.setOnAction(event12 -> {
+                    jdbc.editText(TextTFD.getText(), textValue, userChatRoom);
+                    jdbc.editText(TextTFD.getText(), textValue, FriendChatRoom);
 
-                            Group_info group_info = new Group_info();
-                            if (group_info.LinkValidation(TextTFD.getText())) {
+                    Group_info group_info1 = new Group_info();
+                    if (group_info1.LinkValidation(TextTFD.getText())) {
 
-                                textFlow.getChildren().remove(hyperlink);
-                                Hyperlink newHyperlink = new Hyperlink(TextTFD.getText());
-                                hyperlink.setFont(Font.font("Verdana", 20));
-                                textFlow.getChildren().add(newHyperlink);
+                        textFlow.getChildren().remove(hyperlink);
+                        Hyperlink newHyperlink = new Hyperlink(TextTFD.getText());
+                        hyperlink.setFont(Font.font("Verdana", 20));
+                        textFlow.getChildren().add(newHyperlink);
 
-                            } else {
+                    } else {
 
-                                Text newText = new Text(TextTFD.getText());
-                                newText.setFill(Color.BLACK);
-                                newText.setFont(Font.font("Verdana", 20));
-                                textFlow.getChildren().remove(text);
-                                textFlow.getChildren().add(newText);
+                        Text newText = new Text(TextTFD.getText());
+                        newText.setFill(Color.BLACK);
+                        newText.setFont(Font.font("Verdana", 20));
+                        textFlow.getChildren().remove(text);
+                        textFlow.getChildren().add(newText);
 
-                            }
-                            TextTFD.clear();
-                            OkBTN.setVisible(false);
-                            SendBTN.setDisable(false);
-                        }
-                    });
+                    }
+                    TextTFD.clear();
+                    OkBTN.setVisible(false);
+                    SendBTN.setDisable(false);
+                });
 
-                }
             });
 
-            deleteMessage.setOnAction(new EventHandler<ActionEvent>() {
-                public void handle(ActionEvent e) {
-                    jdbc.deleteText(textValue, userChatRoom);
-                    jdbc.deleteText(textValue, FriendChatRoom);
-                    MessagesVBX.getChildren().remove(textFlow);
-                }
+            deleteMessage.setOnAction(e -> {
+                jdbc.deleteText(textValue, userChatRoom);
+                jdbc.deleteText(textValue, FriendChatRoom);
+                MessagesVBX.getChildren().remove(textFlow);
             });
 
             MessageCMU.getItems().add(editMessage);
             MessageCMU.getItems().add(deleteMessage);
 
             textFlow.addEventHandler(MouseEvent.MOUSE_CLICKED,
-                    new EventHandler<MouseEvent>() {
-                        @Override
-                        public void handle(MouseEvent e) {
-                            if (e.getButton() == MouseButton.SECONDARY)
-                                MessageCMU.show(textFlow, e.getScreenX(), e.getScreenY());
-                        }
-            });
+                    e -> {
+                        if (e.getButton() == MouseButton.SECONDARY)
+                            MessageCMU.show(textFlow, e.getScreenX(), e.getScreenY());
+                    });
 
         }
 
@@ -378,6 +353,7 @@ public class ChatRoomController implements Initializable {
         if (button == null) {
             System.out.println("Button is null");
         }
+        assert button != null;
         Scene scene = button.getScene();
         if (scene == null) {
             throw new IllegalArgumentException("setSaveAccelerator must be called when a button is attached to a scene");
@@ -414,7 +390,7 @@ public class ChatRoomController implements Initializable {
 
         Scene scene = new Scene(loader.getRoot());
         ChatRoomStage.setScene(scene);
-        scene.getStylesheets().add(getClass().getResource("..\\view\\StyleSheet.css").toExternalForm());
+        scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("..\\view\\StyleSheet.css")).toExternalForm());
     }
 
     @FXML
@@ -441,16 +417,11 @@ public class ChatRoomController implements Initializable {
         }
         // (code owner)alert is exited, no button has been pressed.
         else if(result.get() == for_everyone){
-            if (ChatRoomType.GROUP == type){
-                jdbc.ClearChats(userChatRoom);
-                MessagesVBX.getChildren().removeAll(MessagesVBX.getChildren());
-            }
-            else {
+            if (ChatRoomType.GROUP != type) {
                 jdbc.ClearChats(FriendChatRoom);
-                jdbc.ClearChats(userChatRoom);
-                MessagesVBX.getChildren().removeAll(MessagesVBX.getChildren());
             }
-
+            jdbc.ClearChats(userChatRoom);
+            MessagesVBX.getChildren().removeAll(MessagesVBX.getChildren());
         }
         else if(result.get() == for_me){
             jdbc.ClearChats(userChatRoom);
